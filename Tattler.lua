@@ -154,8 +154,8 @@ local tattles = {
   -- spell_id: object, verb, adverb, color, location/metadata
   -- [6603]  = { "Attack", "done", "to", "ff1eff00", "zone" }, -- testing
   [21343] = { "Snowball", "has thrown a", "at", "ff1eff00", "raid", ignore_charmed = true, ignore_pet = true },
-  [23065] = { "Happy Fun Rock", "has thrown a", "at", "ff1eff00", "raid" },
-  [23135] = { "Heavy Leather Ball", "has thrown a", "at", "ff1eff00", "raid" },
+  [23065] = { "Happy Fun Rock", "has thrown a", "at", "ff1eff00", "any" },
+  [23135] = { "Heavy Leather Ball", "has thrown a", "at", "ff1eff00", "any" },
   [24733] = { "Bat Cosume", "has placed a", "on", "ff1eff00", "raid" },
   [24737] = { "Ghost Cosume", "has placed a", "on", "ff1eff00", "raid" },
   [24719] = { "Leper Gnome Cosume", "placed a", "on", "ff1eff00", "raid" },
@@ -177,7 +177,7 @@ function Tattler:Tattle(spell_id,caster,target,extra)
   if target and UnitExists(target) then
     if tattles[spell_id].ignore_charmed and UnitIsCharmed(target) then
       return end
-    if tattles[spell_id].ignore_pet then
+    if false and tattles[spell_id].ignore_pet then -- false because we curently exclude pets in CASTEVENT anyway
       for i=1,GetNumRaidMembers() do
         if UnitIsUnit(target,"raidpet"..i) then
           return
@@ -217,15 +217,17 @@ end
 function Tattler.UNIT_CASTEVENT(caster,target,action,spell_id,cast_time)
   -- skip spells we don't track and non-player actions
   if not tattles[spell_id] then return end
+  -- don't currently care about things from mobs
   if string.sub(caster,3,3) == "F" then return end
-  if caster == target then
-    return
-  end -- we don't care about self-griefs
+  -- don't currently care about things hitting mobs, this currently excludes pets too
+  if string.sub(target,3,3) == "F" then return end
+  -- don't care about self-griefs
+  if caster == target then return end
 
   local extra = nil
   local meta = tattles[spell_id][5]
 
-  if action == "MAINHAND" then action = "CAST" end
+  -- if action == "MAINHAND" then action = "CAST" end
   if UnitInRaid(caster) and action == "CAST" then
     if meta == "zone" then
       local sz = GetSubZoneText()
