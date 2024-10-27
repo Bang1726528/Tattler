@@ -8,8 +8,9 @@ Currently announces:
 * mailbox
 * mc douses
 * haloween costumes in raid
-* snowballs in raid hitting non-mc'd players
+* snowballs in any zone
 * inventory cloggers like rocks and leather balls
+* Picnic baskets
 * rose cascade, to know who admires you so much
 
 For [SuperWow](https://github.com/balakethelock/SuperWoW/) on the 1.12 client.

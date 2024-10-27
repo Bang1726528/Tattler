@@ -153,7 +153,7 @@ local tattler_prefix = "Tattler:"..tattler_version
 local tattles = {
   -- spell_id: object, verb, adverb, color, location/metadata
   -- [6603]  = { "Attack", "done", "to", "ff1eff00", "zone" }, -- testing
-  [21343] = { "Snowball", "has thrown a", "at", "ff1eff00", "raid", ignore_charmed = true, ignore_pet = true },
+  [21343] = { "Snowball", "has thrown a", "at", "ff1eff00", "zone", ignore_charmed = true, ignore_pet = true },
   [23065] = { "Happy Fun Rock", "has thrown a", "at", "ff1eff00", "any" },
   [23135] = { "Heavy Leather Ball", "has thrown a", "at", "ff1eff00", "any" },
   [24733] = { "Bat Costume", "has placed a", "on", "ff1eff00", "raid" },
